@@ -1,0 +1,292 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 -- QUESTION 2\
+\
+SELECT\
+COUNT(*),\
+CASE\
+	WHEN replacement_cost <= 19.99 THEN 'LOW'\
+	WHEN replacement_cost <= 24.99 THEN 'MID'\
+	WHEN replacement_cost <= 29.99 THEN 'HIGH'\
+END as ranges\
+FROM film\
+GROUP BY ranges\
+\
+-- QUESTION 3\
+\
+SELECT\
+title,\
+length,\
+cat.name\
+FROM film fi\
+INNER JOIN film_category f_c ON fi.film_id = f_c.film_id\
+INNER JOIN category cat ON f_c.category_id = cat.category_id\
+WHERE cat.name = 'Drama' OR cat.name = 'Sports'\
+ORDER BY length DESC\
+\
+-- QUESTION 4\
+\
+SELECT\
+cat.name,\
+COUNT(*) cat_count\
+FROM film fi\
+INNER JOIN film_category f_c ON fi.film_id = f_c.film_id\
+INNER JOIN category cat ON f_c.category_id = cat.category_id\
+GROUP BY cat.name\
+ORDER BY cat_count DESC\
+\
+-- QUESTION 5\
+SELECT\
+ac.first_name, ac.last_name, COUNT(*) appearance\
+FROM actor ac\
+INNER JOIN film_actor f_a ON ac.actor_id = f_a.actor_id\
+INNER JOIN film fi ON fi.film_id = f_a.film_id\
+GROUP BY ac.first_name, ac.last_name\
+ORDER BY appearance DESC\
+\
+-- QUESTION 6\
+SELECT\
+--count(*) null_items\
+address, district,\
+cu.first_name\
+FROM address ad\
+LEFT OUTER JOIN customer cu ON ad.address_id = cu.address_id\
+WHERE cu.first_name is null\
+\
+-- QUESTION 7\
+SELECT\
+ci.city,\
+SUM(amount) total_amount_per_city\
+\
+FROM payment pa\
+INNER JOIN customer cu ON pa.customer_id = cu.customer_id\
+INNER JOIN address ad ON cu.address_id = ad.address_id \
+INNER JOIN city ci ON ad.city_id = ci.city_id\
+GROUP BY ci.city\
+ORDER BY total_amount_per_city DESC\
+\
+\
+-- QUESTION 8\
+SELECT\
+country.country || ', ' || city.city as customer_address,\
+SUM(amount) as total_revenue\
+FROM payment\
+INNER JOIN customer ON payment.customer_id = customer.customer_id\
+INNER JOIN address ON customer.address_id = address.address_id\
+INNER JOIN city ON address.city_id = city.city_id\
+INNER JOIN country ON city.country_id = country.country_id\
+GROUP BY customer_address\
+ORDER BY total_revenue\
+\
+-- QUESTION 9\
+SELECT\
+staff_id,\
+AVG(sum_per_customer)\
+FROM \
+	(SELECT staff_id, customer_id, SUM(amount) as sum_per_customer FROM payment group by customer_id, staff_id)\
+GROUP BY staff_id\
+ORDER BY 1 DESC\
+\
+-- QUESTION 10\
+SELECT\
+AVG(daily_sum)\
+FROM (\
+	SELECT\
+	DATE(payment_date) as payment_day,\
+	SUM(amount) daily_sum\
+	FROM payment\
+	WHERE EXTRACT(dow FROM payment_date) = '0'\
+	GROUP BY payment_day\
+)\
+\
+-- QUESTOIN 11\
+SELECT\
+title,\
+length,\
+f1.replacement_cost\
+FROM film f1 WHERE length > (\
+	SELECT AVG(length) FROM film f2\
+	WHERE f2.replacement_cost = f1.replacement_cost\
+)\
+ORDER BY length ASC\
+\
+-- QUESTOIN 12\
+\
+SELECT\
+district,\
+ROUND(AVG(cust_lifetime_spent),2) as avg_lifetime_spent_per_district\
+FROM (\
+    SELECT\
+	customer_id,\
+	SUM(amount) cust_lifetime_spent\
+	FROM payment\
+	GROUP BY customer_id\
+) pa\
+INNER JOIN customer cu ON pa.customer_id = cu.customer_id\
+INNER JOIN address ad ON cu.address_id = ad.address_id\
+GROUP BY district\
+ORDER BY avg_lifetime_spent_per_district DESC\
+\
+SELECT\
+district,\
+ROUND(AVG(total),2) avg_customer_spent\
+FROM\
+	(SELECT \
+	c.customer_id,\
+	district,\
+	SUM(amount) total\
+	FROM payment p\
+	INNER JOIN customer c\
+	ON c.customer_id=p.customer_id\
+	INNER JOIN address a\
+	ON c.address_id=a.address_id\
+	GROUP BY district, c.customer_id\
+) sub\
+GROUP BY district\
+ORDER BY 2 DESC\
+\
+-- QUESTOIN 13\
+\
+\
+SELECT\
+payment_id,\
+amount,\
+cat.name,\
+(SELECT SUM(amount) as total_by_category \
+ 	FROM payment pa2 \
+ 	inner JOIN rental re2 ON pa2.rental_id = re2.rental_id\
+	INNER JOIN inventory inv2 ON re2.inventory_id = inv2.inventory_id\
+	INNER JOIN film_category f_c2 ON inv2.film_id = f_c2.film_id\
+	WHERE f_c2.category_id = cat.category_id\
+)\
+\
+FROM payment pa\
+inner JOIN rental re ON pa.rental_id = re.rental_id\
+INNER JOIN inventory inv ON re.inventory_id = inv.inventory_id\
+INNER JOIN film_category f_c ON inv.film_id = f_c.film_id\
+INNER JOIN category cat ON f_c.category_id = cat.category_id\
+ORDER BY 3 ASC, 1 ASC\
+LIMIT 10\
+\
+SELECT\
+title,\
+amount,\
+name,\
+payment_id,\
+(SELECT \
+	SUM(amount) FROM payment p\
+	LEFT JOIN rental r ON r.rental_id=p.rental_id\
+	LEFT JOIN inventory i ON i.inventory_id=r.inventory_id\
+	LEFT JOIN film f ON f.film_id=i.film_id\
+	LEFT JOIN film_category fc ON fc.film_id=f.film_id\
+	LEFT JOIN category c1 ON c1.category_id=fc.category_id\
+	WHERE c1.name=c.name\
+)\
+FROM payment p\
+LEFT JOIN rental r ON r.rental_id=p.rental_id\
+LEFT JOIN inventory i ON i.inventory_id=r.inventory_id\
+LEFT JOIN film f ON f.film_id=i.film_id\
+LEFT JOIN film_category fc ON fc.film_id=f.film_id\
+LEFT JOIN category c ON c.category_id=fc.category_id\
+ORDER BY name\
+\
+\
+\
+\
+-- QUESTOIN 14\
+\
+SELECT\
+cat2.name,\
+(\
+	SELECT\
+	MAX(total_revenue_by_film) max_rev_by_cat\
+	FROM \
+	(   SELECT\
+		title as f_title,\
+		cat.name as film_cat,\
+		SUM(amount) total_revenue_by_film\
+		FROM payment pa\
+		inner JOIN rental re ON pa.rental_id = re.rental_id\
+		INNER JOIN inventory inv ON re.inventory_id = inv.inventory_id\
+		INNER JOIN film fil ON fil.film_id = inv.film_id\
+		INNER JOIN film_category f_c ON inv.film_id = f_c.film_id\
+		INNER JOIN category cat ON f_c.category_id = cat.category_id \
+		GROUP BY title, cat.name\
+		ORDER BY film_cat ASC, total_revenue_by_film DESC\
+	)\
+	WHERE film_cat = cat2.name\
+),\
+( SELECT f_title\
+	FROM \
+	(   SELECT\
+		title as f_title,\
+		cat.name as film_cat,\
+		SUM(amount) total_revenue_by_film\
+		FROM payment pa\
+		inner JOIN rental re ON pa.rental_id = re.rental_id\
+		INNER JOIN inventory inv ON re.inventory_id = inv.inventory_id\
+		INNER JOIN film fil ON fil.film_id = inv.film_id\
+		INNER JOIN film_category f_c ON inv.film_id = f_c.film_id\
+		INNER JOIN category cat ON f_c.category_id = cat.category_id \
+		GROUP BY title, cat.name\
+		ORDER BY film_cat ASC, total_revenue_by_film DESC\
+	) sub\
+	WHERE total_revenue_by_film = (\
+		SELECT\
+		MAX(total_revenue_by_film) max_rev_by_cat\
+		FROM sub\
+		(   SELECT\
+			title as f_title,\
+			cat.name as film_cat,\
+			SUM(amount) total_revenue_by_film\
+			FROM payment pa\
+			inner JOIN rental re ON pa.rental_id = re.rental_id\
+			INNER JOIN inventory inv ON re.inventory_id = inv.inventory_id\
+			INNER JOIN film fil ON fil.film_id = inv.film_id\
+			INNER JOIN film_category f_c ON inv.film_id = f_c.film_id\
+			INNER JOIN category cat ON f_c.category_id = cat.category_id \
+			GROUP BY title, cat.name\
+			ORDER BY film_cat ASC, total_revenue_by_film DESC\
+		)\
+		WHERE film_cat = cat2.name\
+	)\
+)\
+FROM category cat2\
+\
+--Solution 14 (Bonus question):\
+\
+SELECT\
+title,\
+name,\
+SUM(amount) as total\
+FROM payment p\
+LEFT JOIN rental r ON r.rental_id=p.rental_id\
+LEFT JOIN inventory i ON i.inventory_id=r.inventory_id\
+LEFT JOIN film f ON f.film_id=i.film_id\
+LEFT JOIN film_category fc ON fc.film_id=f.film_id\
+LEFT JOIN category c ON c.category_id=fc.category_id\
+GROUP BY name,title\
+HAVING SUM(amount) = (SELECT \
+	MAX(total)\
+	FROM (\
+		SELECT\
+		title,\
+        name,\
+		SUM(amount) as total\
+		FROM payment p\
+		LEFT JOIN rental r ON r.rental_id=p.rental_id\
+		LEFT JOIN inventory i ON i.inventory_id=r.inventory_id\
+		LEFT JOIN film f ON f.film_id=i.film_id\
+		LEFT JOIN film_category fc ON fc.film_id=f.film_id\
+		LEFT JOIN category c1 ON c1.category_id=fc.category_id\
+		GROUP BY name,title\
+	) sub\
+	WHERE c.name=sub.name\
+)\
+\
+}

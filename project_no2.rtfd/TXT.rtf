@@ -1,0 +1,554 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue-Bold;\f1\fnil\fcharset0 HelveticaNeue;\f2\fswiss\fcharset0 Helvetica;
+\f3\froman\fcharset0 Times-Bold;\f4\froman\fcharset0 Times-Roman;\f5\fnil\fcharset0 HelveticaNeue-Italic;
+\f6\fnil\fcharset0 Menlo-Regular;\f7\froman\fcharset0 Times-Italic;}
+{\colortbl;\red255\green255\blue255;\red34\green35\blue37;\red255\green255\blue255;\red0\green0\blue0;
+\red28\green148\blue121;}
+{\*\expandedcolortbl;;\cssrgb\c17647\c18431\c19216;\cssrgb\c100000\c100000\c100000;\cssrgb\c0\c0\c0;
+\cssrgb\c9804\c63922\c54902;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid1\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{none\}}{\leveltext\leveltemplateid101\'00;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww16540\viewh19400\viewkind0
+\deftab720
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f0\b\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Task 1
+\f1\b0 \
+Difficulty: Moderate\
+
+\f0\b Task 1.1
+\f1\b0 \
+In your company there hasn't been a database table with all the employee information yet.\
+You need to set up the table called employees in the following way:\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb1 {{\NeXTGraphic 2022-08-10_14-06-45-9481317717076af04727664bc6344aec.png \width19080 \height1080 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab720\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa384\partightenfactor0
+\cf2 \cb3 \
+There should be NOT NULL constraints for the following columns:\
+first_name,\
+last_name ,\
+job_position,\
+start_date DATE,\
+birth_date DATE\
+
+\fs45\fsmilli22800 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf2 CREATE TABLE employees\
+(\
+	emp_id INT PRIMARY KEY, \
+	first_name TEXT NOT NULL,\
+	last_name TEXT NOT NULL,\
+	job_position TEXT,\
+	salary NUMERIC(8,2),\
+	start_date DATE NOT NULL,\
+	birth_date DATE NOT NULL,\
+	store_id INT,\
+	department_id INT,\
+	manager_id INT\
+)\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 \cb1 \strokec4 Task 1.2
+\f4\b0 \
+Set up an additional table called departments in the following way:\
+\pard\pardeftab720\partightenfactor0
+\cf0 {{\NeXTGraphic 2022-08-10_14-06-45-ba2470af10baa81827a89a554c5f57c0.png \width5910 \height1080 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\
+\pard\pardeftab720\sa384\partightenfactor0
+\cf0 Additionally no column should allow nulls.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 CREATE TABLE departments (\
+	department_id INT PRIMARY KEY,\
+	department TEXT NOT NULL,\
+	division TEXT NOT NULL\
+)
+\fs45\fsmilli22800 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf2 \cb3 \strokec2 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f0\b\fs24 \cf2 Task 2
+\f1\b0 \
+Difficulty: Moderate\
+Alter the employees table in the following way:\
+- Set the column department_id to not null.\
+- Add a default value of CURRENT_DATE to the column start_date.\
+- Add the column end_date with an appropriate data type (one that you think makes sense).\
+- Add a constraint called birth_check that doesn't allow birth dates that are in the future.\
+- Rename the column job_position to position_title.\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf2 ALTER TABLE employees \
+	ALTER COLUMN department_id SET NOT NULL,\
+	ALTER COLUMN start_date SET DEFAULT CURRENT_DATE,\
+	ADD COLUMN IF NOT EXISTS end_date DATE,\
+	ADD CONSTRAINT birth_check CHECK(birth_date < CURRENT_DATE)\
+	\
+ALTER TABLE employees \
+	RENAME COLUMN job_position TO position_title\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f0\b \cf2 Task 3
+\f1\b0 \
+Difficulty: Moderate\
+
+\f0\b Task 3.1
+\f1\b0 \
+Insert the following values into the\'a0
+\f5\i \cf2 \cb3 \strokec2 employees\'a0
+\f1\i0 \cf2 \cb3 \strokec2 table.\
+There will be most likely an error when you try to insert the values.\
+So, try to insert the values and then fix the error.\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f5\i \cf2 \cb3 \strokec2 Columns:
+\f1\i0 \cf2 \cb3 \strokec2 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\f6 \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (emp_id,first_name,last_name,position_title,salary,start_date,birth_date,store_id,department_id,manager_id,end_date)\cb1 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f1 \cf2 \cb3 \strokec2 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f5\i \cf2 \cb3 \strokec2 Values:
+\f1\i0 \cf2 \cb3 \strokec2 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\f6 \cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (1,\cf5 \strokec5 'Morrie'\cf2 \strokec2 ,\cf5 \strokec5 'Conaboy'\cf2 \strokec2 ,\cf5 \strokec5 'CTO'\cf2 \strokec2 ,21268.94,\cf5 \strokec5 '2005-04-30'\cf2 \strokec2 ,\cf5 \strokec5 '1983-07-10'\cf2 \strokec2 ,1,1,NULL,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (2,\cf5 \strokec5 'Miller'\cf2 \strokec2 ,\cf5 \strokec5 'McQuarter'\cf2 \strokec2 ,\cf5 \strokec5 'Head of BI'\cf2 \strokec2 ,14614.00,\cf5 \strokec5 '2019-07-23'\cf2 \strokec2 ,\cf5 \strokec5 '1978-11-09'\cf2 \strokec2 ,1,1,1,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (3,\cf5 \strokec5 'Christalle'\cf2 \strokec2 ,\cf5 \strokec5 'McKenny'\cf2 \strokec2 ,\cf5 \strokec5 'Head of Sales'\cf2 \strokec2 ,12587.00,\cf5 \strokec5 '1999-02-05'\cf2 \strokec2 ,\cf5 \strokec5 '1973-01-09'\cf2 \strokec2 ,2,3,1,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (4,\cf5 \strokec5 'Sumner'\cf2 \strokec2 ,\cf5 \strokec5 'Seares'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,9515.00,\cf5 \strokec5 '2006-05-31'\cf2 \strokec2 ,\cf5 \strokec5 '1976-08-03'\cf2 \strokec2 ,2,1,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (5,\cf5 \strokec5 'Romain'\cf2 \strokec2 ,\cf5 \strokec5 'Hacard'\cf2 \strokec2 ,\cf5 \strokec5 'BI Consultant'\cf2 \strokec2 ,7107.00,\cf5 \strokec5 '2012-09-24'\cf2 \strokec2 ,\cf5 \strokec5 '1984-07-14'\cf2 \strokec2 ,1,1,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (6,\cf5 \strokec5 'Ely'\cf2 \strokec2 ,\cf5 \strokec5 'Luscombe'\cf2 \strokec2 ,\cf5 \strokec5 'Team Lead Analytics'\cf2 \strokec2 ,12564.00,\cf5 \strokec5 '2002-06-12'\cf2 \strokec2 ,\cf5 \strokec5 '1974-08-01'\cf2 \strokec2 ,1,1,2,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (7,\cf5 \strokec5 'Clywd'\cf2 \strokec2 ,\cf5 \strokec5 'Filyashin'\cf2 \strokec2 ,\cf5 \strokec5 'Senior SQL Analyst'\cf2 \strokec2 ,10510.00,\cf5 \strokec5 '2010-04-05'\cf2 \strokec2 ,\cf5 \strokec5 '1989-07-23'\cf2 \strokec2 ,2,1,2,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (8,\cf5 \strokec5 'Christopher'\cf2 \strokec2 ,\cf5 \strokec5 'Blague'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,9428.00,\cf5 \strokec5 '2007-09-30'\cf2 \strokec2 ,\cf5 \strokec5 '1990-12-07'\cf2 \strokec2 ,2,2,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (9,\cf5 \strokec5 'Roddie'\cf2 \strokec2 ,\cf5 \strokec5 'Izen'\cf2 \strokec2 ,\cf5 \strokec5 'Software Engineer'\cf2 \strokec2 ,4937.00,\cf5 \strokec5 '2019-03-22'\cf2 \strokec2 ,\cf5 \strokec5 '2008-08-30'\cf2 \strokec2 ,1,4,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (10,\cf5 \strokec5 'Ammamaria'\cf2 \strokec2 ,\cf5 \strokec5 'Izhak'\cf2 \strokec2 ,\cf5 \strokec5 'Customer Support'\cf2 \strokec2 ,2355.00,\cf5 \strokec5 '2005-03-17'\cf2 \strokec2 ,\cf5 \strokec5 '1974-07-27'\cf2 \strokec2 ,2,5,3,2013-04-14),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (11,\cf5 \strokec5 'Carlyn'\cf2 \strokec2 ,\cf5 \strokec5 'Stripp'\cf2 \strokec2 ,\cf5 \strokec5 'Customer Support'\cf2 \strokec2 ,3060.00,\cf5 \strokec5 '2013-09-06'\cf2 \strokec2 ,\cf5 \strokec5 '1981-09-05'\cf2 \strokec2 ,1,5,3,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (12,\cf5 \strokec5 'Reuben'\cf2 \strokec2 ,\cf5 \strokec5 'McRorie'\cf2 \strokec2 ,\cf5 \strokec5 'Software Engineer'\cf2 \strokec2 ,7119.00,\cf5 \strokec5 '1995-12-31'\cf2 \strokec2 ,\cf5 \strokec5 '1958-08-15'\cf2 \strokec2 ,1,5,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (13,\cf5 \strokec5 'Gates'\cf2 \strokec2 ,\cf5 \strokec5 'Raison'\cf2 \strokec2 ,\cf5 \strokec5 'Marketing Specialist'\cf2 \strokec2 ,3910.00,\cf5 \strokec5 '2013-07-18'\cf2 \strokec2 ,\cf5 \strokec5 '1986-06-24'\cf2 \strokec2 ,1,3,3,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (14,\cf5 \strokec5 'Jordanna'\cf2 \strokec2 ,\cf5 \strokec5 'Raitt'\cf2 \strokec2 ,\cf5 \strokec5 'Marketing Specialist'\cf2 \strokec2 ,5844.00,\cf5 \strokec5 '2011-10-23'\cf2 \strokec2 ,\cf5 \strokec5 '1993-03-16'\cf2 \strokec2 ,2,3,3,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (15,\cf5 \strokec5 'Guendolen'\cf2 \strokec2 ,\cf5 \strokec5 'Motton'\cf2 \strokec2 ,\cf5 \strokec5 'BI Consultant'\cf2 \strokec2 ,8330.00,\cf5 \strokec5 '2011-01-10'\cf2 \strokec2 ,\cf5 \strokec5 '1980-10-22'\cf2 \strokec2 ,2,3,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (16,\cf5 \strokec5 'Doria'\cf2 \strokec2 ,\cf5 \strokec5 'Turbat'\cf2 \strokec2 ,\cf5 \strokec5 'Senior SQL Analyst'\cf2 \strokec2 ,9278.00,\cf5 \strokec5 '2010-08-15'\cf2 \strokec2 ,\cf5 \strokec5 '1983-01-11'\cf2 \strokec2 ,1,1,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (17,\cf5 \strokec5 'Cort'\cf2 \strokec2 ,\cf5 \strokec5 'Bewlie'\cf2 \strokec2 ,\cf5 \strokec5 'Project Manager'\cf2 \strokec2 ,5463.00,\cf5 \strokec5 '2013-05-26'\cf2 \strokec2 ,\cf5 \strokec5 '1986-10-05'\cf2 \strokec2 ,1,5,3,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (18,\cf5 \strokec5 'Margarita'\cf2 \strokec2 ,\cf5 \strokec5 'Eaden'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,5977.00,\cf5 \strokec5 '2014-09-24'\cf2 \strokec2 ,\cf5 \strokec5 '1978-10-08'\cf2 \strokec2 ,2,1,6,2020-03-16),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (19,\cf5 \strokec5 'Hetty'\cf2 \strokec2 ,\cf5 \strokec5 'Kingaby'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,7541.00,\cf5 \strokec5 '2009-08-17'\cf2 \strokec2 ,\cf5 \strokec5 '1999-04-25'\cf2 \strokec2 ,1,2,6,\cf5 \strokec5 'NULL'\cf2 \strokec2 ),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (20,\cf5 \strokec5 'Lief'\cf2 \strokec2 ,\cf5 \strokec5 'Robardley'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,8981.00,\cf5 \strokec5 '2002-10-23'\cf2 \strokec2 ,\cf5 \strokec5 '1971-01-25'\cf2 \strokec2 ,2,3,6,2016-07-01),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (21,\cf5 \strokec5 'Zaneta'\cf2 \strokec2 ,\cf5 \strokec5 'Carlozzi'\cf2 \strokec2 ,\cf5 \strokec5 'Working Student'\cf2 \strokec2 ,1525.00,\cf5 \strokec5 '2006-08-29'\cf2 \strokec2 ,\cf5 \strokec5 '1995-04-16'\cf2 \strokec2 ,1,3,6,2012-02-19),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (22,\cf5 \strokec5 'Giana'\cf2 \strokec2 ,\cf5 \strokec5 'Matz'\cf2 \strokec2 ,\cf5 \strokec5 'Working Student'\cf2 \strokec2 ,1036.00,\cf5 \strokec5 '2016-03-18'\cf2 \strokec2 ,\cf5 \strokec5 '1987-09-25'\cf2 \strokec2 ,1,3,6,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (23,\cf5 \strokec5 'Hamil'\cf2 \strokec2 ,\cf5 \strokec5 'Evershed'\cf2 \strokec2 ,\cf5 \strokec5 'Web Developper'\cf2 \strokec2 ,3088.00,\cf5 \strokec5 '2022-02-03'\cf2 \strokec2 ,\cf5 \strokec5 '2012-03-30'\cf2 \strokec2 ,1,4,2,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (24,\cf5 \strokec5 'Lowe'\cf2 \strokec2 ,\cf5 \strokec5 'Diamant'\cf2 \strokec2 ,\cf5 \strokec5 'Web Developper'\cf2 \strokec2 ,6418.00,\cf5 \strokec5 '2018-12-31'\cf2 \strokec2 ,\cf5 \strokec5 '2002-09-07'\cf2 \strokec2 ,1,4,2,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (25,\cf5 \strokec5 'Jack'\cf2 \strokec2 ,\cf5 \strokec5 'Franklin'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,6771.00,\cf5 \strokec5 '2013-05-18'\cf2 \strokec2 ,\cf5 \strokec5 '2005-10-04'\cf2 \strokec2 ,1,2,2,NULL),\cb1 \
+\ls2\ilvl0\cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 		\expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 (26,\cf5 \strokec5 'Jessica'\cf2 \strokec2 ,\cf5 \strokec5 'Brown'\cf2 \strokec2 ,\cf5 \strokec5 'SQL Analyst'\cf2 \strokec2 ,8566.00,\cf5 \strokec5 '2003-10-23'\cf2 \strokec2 ,\cf5 \strokec5 '1965-01-29'\cf2 \strokec2 ,1,1,2,NULL)\cb1 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f1 \cf2 \cb3 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf2 INSERT INTO employees\
+(emp_id,first_name,last_name,position_title,salary,start_date,birth_date,store_id,department_id,manager_id,end_date)\
+VALUES \
+(1,'Morrie','Conaboy','CTO',21268.94,'2005-04-30','1983-07-10',1,1,NULL,NULL),\
+(2,'Miller','McQuarter','Head of BI',14614.00,'2019-07-23','1978-11-09',1,1,1,NULL),\
+(3,'Christalle','McKenny','Head of Sales',12587.00,'1999-02-05','1973-01-09',2,3,1,NULL),\
+(4,'Sumner','Seares','SQL Analyst',9515.00,'2006-05-31','1976-08-03',2,1,6,NULL),\
+(5,'Romain','Hacard','BI Consultant',7107.00,'2012-09-24','1984-07-14',1,1,6,NULL),\
+(6,'Ely','Luscombe','Team Lead Analytics',12564.00,'2002-06-12','1974-08-01',1,1,2,NULL),\
+(7,'Clywd','Filyashin','Senior SQL Analyst',10510.00,'2010-04-05','1989-07-23',2,1,2,NULL),\
+(8,'Christopher','Blague','SQL Analyst',9428.00,'2007-09-30','1990-12-07',2,2,6,NULL),\
+(9,'Roddie','Izen','Software Engineer',4937.00,'2019-03-22','2008-08-30',1,4,6,NULL),\
+(10,'Ammamaria','Izhak','Customer Support',2355.00,'2005-03-17','1974-07-27',2,5,3,'2013-04-14'),\
+(11,'Carlyn','Stripp','Customer Support',3060.00,'2013-09-06','1981-09-05',1,5,3,NULL),\
+(12,'Reuben','McRorie','Software Engineer',7119.00,'1995-12-31','1958-08-15',1,5,6,NULL),\
+(13,'Gates','Raison','Marketing Specialist',3910.00,'2013-07-18','1986-06-24',1,3,3,NULL),\
+(14,'Jordanna','Raitt','Marketing Specialist',5844.00,'2011-10-23','1993-03-16',2,3,3,NULL),\
+(15,'Guendolen','Motton','BI Consultant',8330.00,'2011-01-10','1980-10-22',2,3,6,NULL),\
+(16,'Doria','Turbat','Senior SQL Analyst',9278.00,'2010-08-15','1983-01-11',1,1,6,NULL),\
+(17,'Cort','Bewlie','Project Manager',5463.00,'2013-05-26','1986-10-05',1,5,3,NULL),\
+(18,'Margarita','Eaden','SQL Analyst',5977.00,'2014-09-24','1978-10-08',2,1,6,'2020-03-16'),\
+(19,'Hetty','Kingaby','SQL Analyst',7541.00,'2009-08-17','1999-04-25',1,2,6,NULL),\
+(20,'Lief','Robardley','SQL Analyst',8981.00,'2002-10-23','1971-01-25',2,3,6,'2016-07-01'),\
+(21,'Zaneta','Carlozzi','Working Student',1525.00,'2006-08-29','1995-04-16',1,3,6,'2012-02-19'),\
+(22,'Giana','Matz','Working Student',1036.00,'2016-03-18','1987-09-25',1,3,6,NULL),\
+(23,'Hamil','Evershed','Web Developper',3088.00,'2022-02-03','2012-03-30',1,4,2,NULL),\
+(24,'Lowe','Diamant','Web Developper',6418.00,'2018-12-31','2002-09-07',1,4,2,NULL),\
+(25,'Jack','Franklin','SQL Analyst',6771.00,'2013-05-18','2005-10-04',1,2,2,NULL),\
+(26,'Jessica','Brown','SQL Analyst',8566.00,'2003-10-23','1965-01-29',1,1,2,NULL)
+\f1 \
+\pard\pardeftab720\sa384\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f0\b \cf2 Task 3.2
+\f1\b0 \
+Insert the following values into the departments table.\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb1 \strokec2 {{\NeXTGraphic 2022-08-10_14-06-45-028cd4a57cda9324639786daf3ae607d.png \width7275 \height4320 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab720\partightenfactor0
+\cf2 \strokec2 \
+\pard\pardeftab720\sa384\partightenfactor0
+\cf2 \cb3 \
+\pard\pardeftab720\partightenfactor0
+\cf2 INSERT INTO departments\
+(department_id, department, division)\
+VALUES \
+(1,'Analytics','IT'),\
+(2,'Finance','Administration'),\
+(3,'Sales','Sales'),\
+(4,'Website','IT'),\
+(5,'Back Office','Administration')\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 \cb1 \strokec4 \
+Task 4
+\f4\b0 \
+Difficulty: Moderate\
+
+\f3\b Task 4.1
+\f4\b0 \
+Jack Franklin gets promoted to 'Senior SQL Analyst' and the salary raises to 7200.\
+Update the values accordingly.\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+*\
+FROM employees\
+WHERE first_name = 'Jack' AND last_name = 'Franklin'\
+\
+UPDATE employees\
+SET  \
+	position_title = 'Senior SQL Analyst',\
+	salary = 7200\
+WHERE first_name = 'Jack' AND last_name = 'Franklin'\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 \
+Task 4.2
+\f4\b0 \
+The responsible people decided to rename the position_title Customer Support to Customer Specialist.\
+Update the values accordingly.\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+*\
+FROM employees\
+WHERE position_title = 'Customer Support'\
+\
+UPDATE employees\
+SET position_title = 'Customer Specialist'\
+WHERE position_title = 'Customer Support'\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 4.3
+\f4\b0 \
+All SQL Analysts including Senior SQL Analysts get a raise of 6%.\
+Upate the salaries accordingly.\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+emp_id,\
+position_title,\
+salary,\
+salary*1.06 as raised\
+FROM employees\
+WHERE position_title LIKE '%SQL Analyst'\
+\
+UPDATE employees\
+SET salary = 1.06*salary\
+WHERE position_title LIKE '%SQL Analyst'\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 4.4
+\f4\b0 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \strokec4 Question:
+\f4\i0 \strokec4  What is the average salary of a SQL Analyst in the company (excluding Senior SQL Analyst)?\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \outl0\strokewidth0 Answer:
+\f4\i0  8834.75\outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+ROUND(AVG(salary),2)\
+FROM employees\
+WHERE position_title LIKE 'SQL Analyst'\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 5
+\f4\b0 \
+Difficulty: Advanced
+\fs45\fsmilli22800 \
+
+\f3\b\fs24 Task 5.1
+\f4\b0 \
+Write a query that adds a column called manager that contains\'a0 first_name and last_name (in one column) in the data output.\
+Secondly, add a column called is_active with 'false' if the employee has left the company already, otherwise the value is 'true'.\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+emp.*,\
+CASE\
+	WHEN emp.end_date IS NULL THEN 'True' \
+	ELSE 'False'\
+END as is_active,\
+man.first_name || ' ' || man.last_name as manager\
+FROM employees emp\
+INNER JOIN employees man ON emp.manager_id = man.emp_id\
+WHERE emp.manager_id = man.emp_id\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 5.2
+\f4\b0 \
+Create a view called v_employees_info from that previous query.\
+\pard\pardeftab720\partightenfactor0
+\cf0 CREATE VIEW v_employees_info\
+AS\
+SELECT\
+emp.*,\
+CASE\
+	WHEN emp.end_date IS NULL THEN 'True' \
+	ELSE 'False'\
+END as is_active,\
+man.first_name || ' ' || man.last_name as manager\
+FROM employees emp\
+INNER JOIN employees man ON emp.manager_id = man.emp_id\
+WHERE emp.manager_id = man.emp_id\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 6
+\f4\b0 \
+Difficulty: Moderate\
+Write a query that returns the average salaries for each positions with appropriate roundings.\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \strokec4 Question:
+\f4\i0 \strokec4  What is the average salary for a Software Engineer in the company.\
+
+\f7\i \strokec4 Answer:
+\f4\i0 \strokec4  6028.00\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+position_title,\
+ROUND(AVG(salary),2)\
+FROM employees\
+GROUP BY position_title\
+\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 7
+\f4\b0 \
+Difficulty: Moderate\
+Write a query that returns the average salaries per division.\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \strokec4 Question:
+\f4\i0 \strokec4  What is the average salary in the Sales department?\
+Answer: 6107.41\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+SELECT\
+division,\
+ROUND(AVG(salary),2) as avg_per_division\
+FROM employees em\
+INNER JOIN departments de ON em.department_id = de.department_id\
+GROUP BY division\
+ORDER BY avg_per_division DESC\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 \
+\
+Task 8
+\f4\b0 \
+Difficulty: Advanced\
+
+\f3\b Task 8.1
+\f4\b0 \
+Write a query that returns the following:\
+emp_id,\
+first_name,\
+last_name,\
+position_title,\
+salary\
+and a column that returns the average salary for every job_position.\
+\
+Order the results by the emp_id.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \strokec4 {{\NeXTGraphic 2022-08-10_14-06-45-ee080b7812d315118f52b676dfbfac4b.png \width15210 \height3645 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab720\partightenfactor0
+\cf0 \strokec4 \
+\pard\pardeftab720\sa384\partightenfactor0
+\cf0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+emp_id,\
+first_name,\
+last_name,\
+position_title,\
+salary,\
+ROUND((AVG(salary) OVER(PARTITION BY position_title)),2) as avg_salary_per_job_pos\
+FROM employees\
+ORDER BY emp_id ASC\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 8.2
+\f4\b0 \
+Difficulty: Advanced to Pro\
+How many people earn less than there avg_position_salary?\
+Write a query that answers that question. Ideally, the output just shows that number directly.\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \strokec4 Answer:
+\f4\i0 \strokec4 9\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+COUNT(*)\
+FROM (SELECT\
+	emp_id,\
+	first_name,\
+	last_name,\
+	position_title,\
+	salary,\
+	ROUND((AVG(salary) OVER(PARTITION BY position_title)),2) as avg_salary_per_job_pos\
+	FROM employees\
+	ORDER BY emp_id ASC\
+) sub\
+WHERE salary < sub.avg_salary_per_job_pos\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 9:
+\f4\b0 \
+Difficulty: Advanced\
+Write a query that returns a running total of the salary development ordered by the start_date.\
+In your calculation, you can assume their salary has not changed over time, and you can disregard the fact that people have left the company (write the query as if they were still working for the company).\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f2 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {{\NeXTGraphic Screenshot 2024-02-15 at 12.11.58.png \width8420 \height3800 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}
+\f4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa384\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \strokec4 Question:
+\f4\i0 \strokec4  What was the total salary after 2018-12-31?\
+
+\f7\i \strokec4 Answer:
+\f4\i0 \strokec4  180202.70\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+emp_id,\
+salary,\
+start_date,\
+SUM(salary) OVER(ORDER BY start_date)\
+FROM employees\
+ORDER BY start_date\
+\
+\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f3\b \cf0 Task 10:
+\f4\b0 \
+Difficulty: Pro / Very difficult\
+Create the same running total but now also consider the fact that people were leaving the company.\
+\pard\pardeftab720\sa384\partightenfactor0
+
+\f7\i \cf0 \strokec4 Question:
+\f4\i0 \strokec4  What was the total salary after 2018-12-31?\
+
+\f7\i \strokec4 Answer:
+\f4\i0 \strokec4  166802.84\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 SELECT\
+date_of_change,\
+em.emp_id,\
+salary,\
+start_date,\
+end_date,\
+SUM(\
+	CASE\
+	WHEN date_of_change >= end_date THEN -salary\
+	WHEN start_date <= date_of_change THEN salary\
+	END\
+) OVER(ORDER BY date_of_change)\
+FROM (\
+	SELECT emp_id, start_date as date_of_change FROM employees\
+UNION \
+	SELECT emp_id, end_date as date_of_change FROM employees \
+) sub1\
+INNER JOIN employees em ON sub1.emp_id = em.emp_id\
+ORDER BY date_of_change\
+\pard\pardeftab720\sa384\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f2 \cf0 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {{\NeXTGraphic Screenshot 2024-02-15 at 12.56.17.png \width12500 \height9440 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f4 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa384\partightenfactor0
+\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1 \cf2 \cb3 \strokec2 \
+}
